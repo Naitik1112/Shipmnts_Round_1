@@ -6,6 +6,7 @@ const cors = require("cors");
 
 const AppError = require("./utils/appError");
 // const userRouter = require('./routes/userRoutes');
+const shipmentsRouter = require("./routes/shipmentsRoutes");
 
 const app = express();
 
@@ -30,6 +31,7 @@ app.use(express.json());
 
 // 3) ROUTES
 // app.use('/api/v1/users', userRouter);
+app.use("/api/v1/shipments", shipmentsRouter);
 
 // 4) 404 Handler
 app.all("*", (req, res, next) => {

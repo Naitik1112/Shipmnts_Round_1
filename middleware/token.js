@@ -9,7 +9,7 @@ const signToken = id => {
   });
 };
 
-const createSendToken = (user, statusCode, res) => {
+exports.createSendToken = (user, statusCode, res) => {
   const token = signToken(user._id);
   const cookieOptions = {
     expires: new Date(
@@ -34,6 +34,8 @@ const createSendToken = (user, statusCode, res) => {
     token
   });
 };
+
+// createSendToken(newUser, 201, res);
 
 
 exports.protect = catchAsync(async (req, res, next) => {
@@ -60,11 +62,6 @@ exports.protect = catchAsync(async (req, res, next) => {
     );
   }
 
-  if (currentUser.changedPasswordAfter(decoded.iat)) {
-    return next(
-      new AppError('User recently changed password! Please log-in', 401)
-    );
-  }
   req.user = currentUser;
   next();
 });
